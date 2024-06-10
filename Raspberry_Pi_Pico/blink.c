@@ -1,8 +1,7 @@
 #include "pico/stdlib.h"
 
 int main() {
-ifndef PICO_DEFAULT_LED_PIN
-
+#ifndef PICO_DEFAULT_LED_PIN
 #else
     const uint LED_PIN = PICO_DEFAULT_LED_PIN;
     gpio_init(LED_PIN);
