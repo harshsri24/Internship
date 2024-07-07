@@ -15,7 +15,7 @@ const char* blink_intervals[] = {"1", "2", "3", "4"};
 void gpio_callback(uint gpio, uint32_t events) {
     if (gpio == SIGNAL_PIN) {
         uart_puts(UART_ID, blink_intervals[blink_interval_index]);
-        blink_interval_index = (blink_interval_index + 1) % 4;  // Cycle through intervals
+        blink_interval_index = (blink_interval_index + 1) % 4;  
     }
 }
 
@@ -28,12 +28,13 @@ int main() {
 
     gpio_init(SIGNAL_PIN);
     gpio_set_dir(SIGNAL_PIN, GPIO_IN);
-    gpio_pull_down(SIGNAL_PIN);  // Default state is low
+    gpio_pull_down(SIGNAL_PIN);  
 
+    // Set up GPIO interrupt
     gpio_set_irq_enabled_with_callback(SIGNAL_PIN, GPIO_IRQ_EDGE_RISE, true, &gpio_callback);
 
     while (true) {
-        tight_loop_contents();  
+        tight_loop_contents(); 
     }
 
     return 0;
