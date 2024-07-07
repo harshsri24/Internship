@@ -10,12 +10,12 @@
 #define SIGNAL_PIN 15   
 
 volatile int blink_interval_index = 0;
-const char* blink_intervals[] = {"1", "2", "3", "4"};  // Different blink intervals
+const char* blink_intervals[] = {"1", "2", "3", "4"}; 
 
 void gpio_callback(uint gpio, uint32_t events) {
     if (gpio == SIGNAL_PIN) {
         uart_puts(UART_ID, blink_intervals[blink_interval_index]);
-        blink_interval_index = (blink_interval_index + 1) % 4;  
+        blink_interval_index = (blink_interval_index + 1) % 4;  // Cycle through intervals
     }
 }
 
