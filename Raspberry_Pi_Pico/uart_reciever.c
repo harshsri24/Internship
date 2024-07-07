@@ -8,7 +8,7 @@
 #define UART_BAUD_RATE 115200
 #define UART_TX_PIN 0
 #define UART_RX_PIN 1
-#define LED_PIN 25    
+#define LED_PIN 25     
 
 volatile int blink_interval_ms = 0;  
 volatile bool led_state = false;
@@ -36,6 +36,11 @@ void uart_receive_callback() {
             case '4':
                 blink_interval_ms = 4000;
                 break;
+            case 'S':  // Stop signal
+                blink_interval_ms = 0;
+                cancel_repeating_timer(&timer);
+                gpio_put(LED_PIN, 0);  
+                return;
         }
         if (blink_interval_ms > 0) {
             cancel_repeating_timer(&timer);
